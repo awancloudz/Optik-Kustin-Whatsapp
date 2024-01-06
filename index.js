@@ -10,12 +10,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-//Koneksi ke Database
-const mongooseConfig = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}
-
 //Membuat Routes
 require("./app/routes/transaction.routes")(app);
 
