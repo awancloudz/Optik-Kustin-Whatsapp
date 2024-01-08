@@ -68,10 +68,6 @@ exports.sendwhatsapp = (req, res) => {
             
             setInterval(function() {
                 res.end(); 
-                const client = new Client({
-                    authStrategy: new LocalAuth(),
-                    puppeteer: { headless: true }
-                });
             }, 2000);
             
         } else {
