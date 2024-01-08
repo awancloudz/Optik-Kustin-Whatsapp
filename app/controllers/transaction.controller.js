@@ -32,7 +32,7 @@ exports.sendwhatsapp = (req, res) => {
     }); 
     client.on('ready', () => {
         console.log('Whatsapp sudah ready!');
-        sendwa();
+        sendwa();    
     }); 
     client.on('disconnected', () => {
         console.log('Client is disconnected!');
@@ -66,13 +66,13 @@ exports.sendwhatsapp = (req, res) => {
             //await client.sendMessage(number_details._serialized, footermessage); // kirim footer      
             console.log('Whatsapp Terkirim!');
             
-            setInterval(function() {
-                res.end(); 
+            setTimeout(function() {
+                res.end();                  
             }, 2000);
             
         } else {
             console.log('Whatsapp Tidak Terkirim! Nomor tidak terdaftar');
-            setInterval(function() {
+            setTimeout(function() {
                 res.end(); 
             }, 2000);
         }
