@@ -2,9 +2,8 @@ const qrcode = require('qrcode-terminal');
 const { Client, LocalAuth, MessageMedia  } = require('whatsapp-web.js');
 const client = new Client({
     authStrategy: new LocalAuth(),
-    puppeteer: { headless: true }
+    puppeteer: { headless: false }
 });
-
 exports.initwhatsapp = (req, res) => {
     client.on('qr', qr => {
         qrcode.generate(qr, {small: true});
@@ -67,7 +66,8 @@ exports.sendwhatsapp = (req, res) => {
             console.log('Whatsapp Terkirim!');
             
             setTimeout(function() {
-                res.end();                  
+                res.end();    
+                client.pupPage.close();
             }, 2000);
             
         } else {
