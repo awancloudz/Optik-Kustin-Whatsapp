@@ -46,6 +46,8 @@ exports.sendwhatsapp = (req, res) => {
 
     const sendwa = async () => {
         console.log('Sedang mengirim pesan.....');
+        const JenisTransaksi = req.body.JenisTransaksi;
+        const Cabang = req.body.Cabang;
         const NoHandphone = req.body.NoHandphone;
         const FilePDF = req.body.FilePDF;
         const NamaCustomer = req.body.NamaCustomer;
@@ -58,23 +60,33 @@ exports.sendwhatsapp = (req, res) => {
         const footermessage = "* Barang yang sudah dibeli tidak dapat ditukar/dikembalikan, uang muka tidak dapat dikembalikan. \r\n* Barang yang tidak diambil setelah 3 bulan diluar tanggung jawab kami. \r\n* Kritik dan saran hub. 0813 7757 2015";
     
         if (number_details) {
-            const media = MessageMedia.fromFilePath('C:\\Project\\optikkustin-new\\public\\pdf\\'+`${FilePDF}`); //Windows
-            //const media = MessageMedia.fromFilePath('/home/optikkustin/Optik-Kustin-New/public/pdf/'+`${FilePDF}`); //Linux
-            await client.sendMessage(number_details._serialized, greetingmessage); // kirim greeting
-            await client.sendMessage(number_details._serialized, media)// kirim pdf
-            //await client.sendMessage(number_details._serialized, footermessage); // kirim footer      
-            console.log('Whatsapp Terkirim!');
-            
-            setTimeout(function() {
-                res.end();    
+            if(JenisTransaksi == "PESAN KACAMATA"){
+                const FilePDF2 = req.body.FilePDF2;
+                const media = MessageMedia.fromFilePath('C:\\Project\\optikkustin-new\\public\\pdf\\'+`${FilePDF}`); //Windows
+                //const media = MessageMedia.fromFilePath('/home/optikkustin/Optik-Kustin-New/public/pdf/'+`${FilePDF}`); //Linux
+                const media2 = MessageMedia.fromFilePath('C:\\Project\\optikkustin-new\\public\\pdf\\'+`${FilePDF2}`); //Windows
+                //const media2 = MessageMedia.fromFilePath('/home/optikkustin/Optik-Kustin-New/public/pdf/'+`${FilePDF2}`); //Linux
+                await client.sendMessage(number_details._serialized, greetingmessage); // kirim greeting
+                await client.sendMessage(number_details._serialized, media)// kirim NOTA
+                await client.sendMessage(number_details._serialized, media2)// kirim GARANSI
+                //await client.sendMessage(number_details._serialized, footermessage); // kirim footer  
+                res.end(); 
                 client.pupPage.close();
-            }, 2000);
-            
+            }
+            else if(JenisTransaksi == "JUAL LANGSUNG"){
+                const media = MessageMedia.fromFilePath('C:\\Project\\optikkustin-new\\public\\pdf\\'+`${FilePDF}`); //Windows
+                //const media = MessageMedia.fromFilePath('/home/optikkustin/Optik-Kustin-New/public/pdf/'+`${FilePDF}`); //Linux
+                await client.sendMessage(number_details._serialized, greetingmessage); // kirim greeting
+                await client.sendMessage(number_details._serialized, media)// kirim pdf
+                //await client.sendMessage(number_details._serialized, footermessage); // kirim footer  
+                res.end(); 
+                client.pupPage.close();
+            }
+                
+            console.log('Whatsapp Terkirim!');               
         } else {
             console.log('Whatsapp Tidak Terkirim! Nomor tidak terdaftar');
-            setTimeout(function() {
-                res.end(); 
-            }, 2000);
+            res.end();    
         }
     }
 }
