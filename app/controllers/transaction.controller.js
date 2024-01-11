@@ -109,19 +109,23 @@ exports.sendwhatsapp = (req, res) => {
         if (number_details) {
             if(JenisTransaksi == "PESAN KACAMATA"){
                 const FilePDF2 = req.body.FilePDF2;
+                const FilePDF3 = req.body.FilePDF3;
                 const greetingmessage = "Terima Kasih Bpk/Ibu/Sdr " + `${NamaCustomer}` + ", telah berbelanja di Optik Kustin. Berikut kami kirimkan nota pemesanan anda.";
                 const media = MessageMedia.fromFilePath('C:\\Project\\Optik-Kustin-New\\public\\pdf\\'+`${FilePDF}`); //Windows
                 //const media = MessageMedia.fromFilePath('/home/optikkustin/Optik-Kustin-New/public/pdf/'+`${FilePDF}`); //Linux
                 const media2 = MessageMedia.fromFilePath('C:\\Project\\Optik-Kustin-New\\public\\pdf\\'+`${FilePDF2}`); //Windows
                 //const media2 = MessageMedia.fromFilePath('/home/optikkustin/Optik-Kustin-New/public/pdf/'+`${FilePDF2}`); //Linux
+                const media3 = MessageMedia.fromFilePath('C:\\Project\\Optik-Kustin-New\\public\\pdf\\'+`${FilePDF3}`); //Windows
+                //const media3 = MessageMedia.fromFilePath('/home/optikkustin/Optik-Kustin-New/public/pdf/'+`${FilePDF3}`); //Linux
                 try {
                     await client.sendMessage(number_details._serialized, greetingmessage); // kirim greeting
-                    await client.sendMessage(number_details._serialized, media)// kirim NOTA
+                    await client.sendMessage(number_details._serialized, media)// kirim NOTA PEMESANAN
                     await client.sendMessage(number_details._serialized, media2)// kirim GARANSI
+                    await client.sendMessage(number_details._serialized, media3)// kirim SURAT ORDER
                     //await client.sendMessage(number_details._serialized, footermessage); // kirim footer  
                     console.log('Nota Pemesanan Terkirim!'); 
                     res.end(); 
-                    await sleep(5000);
+                    await sleep(10000);
                     await client.destroy();
                     await client.removeAllListeners();
                     console.log('Client Destroy!');
