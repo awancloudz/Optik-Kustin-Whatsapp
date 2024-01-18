@@ -120,8 +120,8 @@ exports.sendwhatsapp = (req, res) => {
                 try {
                     await client.sendMessage(number_details._serialized, greetingmessage); // kirim greeting
                     await client.sendMessage(number_details._serialized, media)// kirim NOTA PEMESANAN
-                    await client.sendMessage(number_details._serialized, media2)// kirim GARANSI
-                    await client.sendMessage(number_details._serialized, media3)// kirim SURAT ORDER
+                    //await client.sendMessage(number_details._serialized, media2)// kirim GARANSI
+                    //await client.sendMessage(number_details._serialized, media3)// kirim SURAT ORDER
                     //await client.sendMessage(number_details._serialized, footermessage); // kirim footer  
                     console.log('Nota Pemesanan Terkirim!'); 
                     res.end(); 
