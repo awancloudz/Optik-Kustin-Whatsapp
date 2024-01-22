@@ -5,7 +5,7 @@ exports.initwhatsapp = (req, res) => {
     console.log('Whatsapp Engine Start!'); 
     const Cabang = req.body.STORE;
     const RX = req.body.RX;
-    const SessionIDWA = Cabang + "_" + RX;
+    const SessionIDWA = Cabang;
     function sleep(ms){
         return new Promise(resolve => setTimeout(resolve, ms));
     }
@@ -51,7 +51,7 @@ exports.sendwhatsapp = (req, res) => {
     console.log('Whatsapp Engine Start!');  
     const Cabang = req.body.Cabang;
     const RX = req.body.RX;
-    const SessionIDWA = Cabang + "_" + RX;
+    const SessionIDWA = Cabang;
     const client = new Client({
         authStrategy: new LocalAuth({clientId: SessionIDWA }),
         bypassCSP: true,
